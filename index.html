@@ -1,6 +1,83 @@
-<iframe
-	src="https://tongxiaojun-jdt-space.static.hf.space"
-	frameborder="0"
-	width="850"
-	height="450"
-></iframe>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>金土豆航天</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+        }
+        
+        .iframe-container {
+            position: relative;
+            width: 100%;
+            height: 100vh; /* 全屏高度 */
+            overflow: hidden;
+        }
+        
+        .iframe-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: transparent;
+        }
+        
+        /* 可选：添加加载指示器 */
+        .loader {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+        }
+        
+        .loader.hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="iframe-container">
+        <!-- 加载指示器 -->
+        <div class="loader" id="loader">
+            <p>加载中...</p>
+        </div>
+        
+        <!-- 内嵌 iframe -->
+        <iframe 
+            src="https://tongxiaojun-jdt-space.static.hf.space" 
+            frameborder="0"
+            onload="document.getElementById('loader').classList.add('hidden')"
+            allowfullscreen>
+        </iframe>
+    </div>
+
+    <script>
+        // 可选：处理 iframe 高度自适应
+        window.addEventListener('message', function(e) {
+            // 如果 iframe 发送了高度信息，可以在这里调整
+            if (e.data && e.data.type === 'iframeHeight') {
+                document.querySelector('.iframe-container').style.height = e.data.height + 'px';
+            }
+        });
+        
+        // 可选：处理移动设备上的滚动问题
+        document.addEventListener('touchmove', function(e) {
+            // 防止父页面滚动
+            e.preventDefault();
+        }, { passive: false });
+    </script>
+</body>
+</html>
+
